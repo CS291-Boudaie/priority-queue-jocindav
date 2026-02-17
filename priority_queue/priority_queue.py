@@ -59,11 +59,12 @@ class MinHeap:
         else:
             return self.data[0]
 
-
     def add(self, priority, item):
         # TODO: Add (priority, item) to end of list
         # Then bubble it UP into correct position
-        pass
+        self.data.append((priority,item))
+        self._bubble_up(len(self.data) - 1) # the tuple that was just appeneded is at the end of the list, so go to that last index and bubble it up
+
 
     def pop_min(self):
         # TODO: Remove and return the smallest element (priority, item)
@@ -78,14 +79,22 @@ class MinHeap:
         # Keep swapping this node with its parent while it has a smaller priority.
         # parent index = (idx - 1) // 2
         # Stop when you reach the root OR parent already has <= priority.
-        pass
+        while idx > 0:
+            parent = (idx - 1) // 2
+
+            if self.data[idx][0] < self.data[parent][0]:
+                self.data[idx], self.data[parent] = self.data[parent], self.data[idx]
+                idx = parent
+
+            else:
+                break
 
     def _bubble_down(self, idx):
         # Keep swapping this node downward until the heap property is restored.
         # left child = 2*idx + 1, right child = 2*idx + 2
         # Find the smaller child, then swap if current priority is bigger.
         # Stop when no children exist OR current is <= both children.
-        pass
+       pass
 
 
 # Once you have a min heap, the priority queue is pretty straightforward. 
