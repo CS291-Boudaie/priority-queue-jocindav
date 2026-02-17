@@ -72,7 +72,22 @@ class MinHeap:
         # 1) swap root with last element
         # 2) pop last element (former root)
         # 3) bubble DOWN new root
-        pass
+
+        if self.is_empty():
+            return None
+        
+        if self.__len__() == 1:
+            return self.data.pop() 
+        
+        original_root = self.data[0]
+        self.data[0] = self.data[-1]
+        self.data[-1] = original_root
+
+        last = self.data.pop()
+        self._bubble_down(0)
+        return last
+
+
 
     def _bubble_up(self, idx):
         # TODO: Implement
@@ -83,18 +98,32 @@ class MinHeap:
             parent = (idx - 1) // 2
 
             if self.data[idx][0] < self.data[parent][0]:
-                self.data[idx], self.data[parent] = self.data[parent], self.data[idx]
+                temp = self.data[idx]
+                self.data[idx] = self.data[parent]
+                self.data[parent] = temp
                 idx = parent
 
             else:
                 break
 
     def _bubble_down(self, idx):
-        # Keep swapping this node downward until the heap property is restored.
-        # left child = 2*idx + 1, right child = 2*idx + 2
-        # Find the smaller child, then swap if current priority is bigger.
-        # Stop when no children exist OR current is <= both children.
-       pass
+        n = len(self.data)
+
+        while True:
+            left = 2 * idx + 1
+            right = 2 * idx + 2
+            smallest = idx
+
+            if left < n and self.data[left][0] < self.data[smallest][0]:
+                smallest = left
+            if right < n and self.data[right][0] < self.data[smallest][0]:
+                smallest = right
+
+            if smallest == idx:
+                break
+
+            self.data[idx], self.data[smallest] = self.data[smallest], self.data[idx]
+            idx = smallest
 
 
 # Once you have a min heap, the priority queue is pretty straightforward. 
