@@ -53,13 +53,12 @@ class MinHeap:
         # TODO: Return (priority, item) but do NOT remove
         # If empty, return None (or raise an error)
 
-        if self.is_empty(self):
+        if self.is_empty():
             return None
         
         else:
-            return self.data
+            return self.data[0]
 
-        pass
 
     def add(self, priority, item):
         # TODO: Add (priority, item) to end of list
